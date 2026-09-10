@@ -1,10 +1,12 @@
-from datetime import datetime, timedelta
-import pandas as pd
 import json
+from datetime import datetime, timedelta, timezone
+
+import pandas as pd
 from airflow.decorators import dag, task
-from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.docker.operators.docker import DockerOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 from docker.types import Mount
+
 from plugins.coingecko_client import CoinGeckoClient
 
 default_args = {
@@ -17,7 +19,7 @@ default_args = {
 @dag(
     dag_id="crypto_market_elt",
     schedule="0 */6 * * *",
-    start_date=datetime(2026, 1, 1),
+    start_date=datetime(2026, 1, 1, tzinfo=timezone.utc),
     catchup=False,
     default_args=default_args,
     tags=["crypto", "elt", "portfolio"],
@@ -33,7 +35,7 @@ def crypto_market_elt():
     def load_raw(records: list[dict]):
         df = pd.DataFrame(records)
         df["roi"] = df["roi"].apply(lambda x: json.dumps(x) if isinstance(x, dict) else None)
-        df["ingested_at"] = datetime.utcnow()
+        df["ingested_at"] = datetime.now(timezone.utc)
 
         hook = PostgresHook(postgres_conn_id="analytics_postgres")
         engine = hook.get_sqlalchemy_engine()

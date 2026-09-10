@@ -1,5 +1,7 @@
 from unittest.mock import MagicMock
+
 import pytest
+
 from plugins.coingecko_client import CoinGeckoClient
 
 

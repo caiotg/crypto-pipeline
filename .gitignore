@@ -1,0 +1,9 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/
+crypto_pipeline_dbt/target/
+crypto_pipeline_dbt/dbt_packages/
+crypto_pipeline_dbt/logs/

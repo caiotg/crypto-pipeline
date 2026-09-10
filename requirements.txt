@@ -1,0 +1,6 @@
+requests
+pandas
+apache-airflow-providers-postgres
+pytest
+python-dotenv
+apache-airflow-providers-docker

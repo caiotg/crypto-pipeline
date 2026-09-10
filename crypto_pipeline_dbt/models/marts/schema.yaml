@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: mart_market_overview
+    description: "Snapshot mais recente de cada criptomoeda monitorada, uma linha por moeda"
+    columns:
+      - name: coin_id
+        description: "Identificador único da moeda na CoinGecko"
+        data_tests:
+          - unique
+          - not_null
+      - name: current_price
+        data_tests:
+          - not_null
+      - name: market_cap_rank
+        data_tests:
+          - not_null

@@ -1,0 +1,12 @@
+crypto_pipeline_dbt:
+  target: docker
+  outputs:
+    docker:
+      type: postgres
+      host: postgres-analytics
+      port: 5432
+      user: analytics
+      password: analytics
+      dbname: crypto_db
+      schema: dbt_caio
+      threads: 4

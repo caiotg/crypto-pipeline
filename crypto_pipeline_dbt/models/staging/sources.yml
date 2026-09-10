@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    database: crypto_db
+    tables:
+      - name: raw_coins_market
+        description: "Snapshot de mercado de criptomoedas, capturado a cada 6h via Airflow a partir da API da CoinGecko"
+        loaded_at_field: ingested_at
+        freshness:
+          warn_after: {count: 8, period: hour}
+          error_after: {count: 24, period: hour}

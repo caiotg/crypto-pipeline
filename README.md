@@ -12,14 +12,14 @@ Projeto de portfólio construído para demonstrar competências de engenharia de
 CoinGecko API
       │
       ▼
-┌─────────────────────────────────────────────┐
-│  Airflow (DAG: crypto_market_elt)            │
-│                                               │
-│  extract_markets  →  load_raw  →  run_dbt    │
-│  (Python/requests)  (pandas/    (DockerOperator
-│                       psycopg2)   → container
-│                                    dbt isolado)
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│  Airflow (DAG: crypto_market_elt)               │
+│                                                 │
+│  extract_markets  →  load_raw  →  run_dbt       │
+│  (Python/requests)  (pandas/    (DockerOperator │
+│                       psycopg2)   → container   │
+│                                    dbt isolado) │
+└─────────────────────────────────────────────────┘
       │                    │              │
       ▼                    ▼              ▼
   (dado em memória,   raw.raw_coins_market   dbt_caio.stg_coins_market (view)

@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/caiotg/crypto-pipeline/actions/workflows/ci.yml/badge.svg)
 
-Pipeline ELT de mercado de criptomoedas: extrai dados da API pública da [CoinGecko](https://www.coingecko.com/en/api), carrega em um data warehouse Postgres e transforma em camadas analíticas com dbt — tudo orquestrado pelo Airflow e rodando em containers Docker isolados.
+Pipeline ELT de criptomoedas: extrai dados da API pública da [CoinGecko](https://www.coingecko.com/en/api), carrega em um data warehouse Postgres e transforma em camadas analíticas com dbt — tudo orquestrado pelo Airflow e rodando em containers Docker isolados.
 
 Projeto de portfólio construído para demonstrar competências de engenharia de dados: orquestração, modelagem em camadas, testes automatizados, tratamento de falhas reais de API/rede/tipo de dado, e uma decisão de arquitetura para contornar um conflito real de dependências entre ferramentas.
 
@@ -12,14 +12,14 @@ Projeto de portfólio construído para demonstrar competências de engenharia de
 CoinGecko API
       │
       ▼
-┌─────────────────────────────────────────────┐
-│  Airflow (DAG: crypto_market_elt)            │
-│                                               │
-│  extract_markets  →  load_raw  →  run_dbt    │
-│  (Python/requests)  (pandas/    (DockerOperator
-│                       psycopg2)   → container
-│                                    dbt isolado)
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│  Airflow (DAG: crypto_market_elt)               │
+│                                                 │
+│  extract_markets  →  load_raw  →  run_dbt       │
+│  (Python/requests)  (pandas/    (DockerOperator |
+│                       psycopg2)   → container   |
+│                                    dbt isolado) |
+└─────────────────────────────────────────────────┘
       │                    │              │
       ▼                    ▼              ▼
   (dado em memória,   raw.raw_coins_market   dbt_caio.stg_coins_market (view)
